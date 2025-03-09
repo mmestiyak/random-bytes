@@ -1,0 +1,10 @@
+
+{
+  "compilerOptions": {
+    "module": "ESNext", // Use "ESNext" or "ES6" for ES modules
+    "target": "ESNext", // Specify ECMAScript target version
+    "types": ["node"], // Include Node.js types
+    "checkJs": true // Optional: Enables type checking for JavaScript files if you want
+  },
+  "include": ["**/*.ts", "**/*.js"] // Include your JavaScript and TypeScript files
+}
