@@ -42,8 +42,18 @@ const dir = import.meta.dirname + '/';
     const streamRead = fileHandleRead.createReadStream();
     const streamWrite = fileHandleWrite.createWriteStream();
 
+    let leftOver = 0;
     streamRead.on('data', (chunk) => {
-        const ok = streamWrite.write(chunk);
+        const numbers = chunk.toString('utf8').split('\n').map(Number)
+        if (numbers[0] + 1 !== numbers[1]) {
+            numbers[0] = Number(leftOver) + numbers[0]
+        }
+        if (numbers[numbers.length - 2] + 1 !== numbers[numbers.length - 1]) {
+            leftOver = numbers.pop()
+        }
+
+        const evenNumbers = numbers.filter(number => number % 2 === 0)
+        const ok = streamWrite.write(evenNumbers.join('\n'));
         if (!ok) {
             streamRead.pause(); // Pause reading if the write buffer is full
         }
